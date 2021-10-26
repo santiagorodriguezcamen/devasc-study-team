@@ -1,0 +1,10 @@
+
+<<<<<<< HEAD
+Estamos haciendo rodriguez
+=======
+Estamos haciendo santiago
+>>>>>>> test
+Primera linea 
+Segunda linea
+Estamos empezando a entender Git
+esta llinea se agrego entando en la rama de caracteristicas 
