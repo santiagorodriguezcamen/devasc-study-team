@@ -1,0 +1,92 @@
+<?php
+   
+    
+class reserva{
+
+                  public $numero_reservacion;
+                  public $personas;
+                  public $llegada;
+                  public $salida;
+                  public $fecha;
+                    
+
+                    function agregar(){
+                       
+                                          $obj = new conexion();
+                                          $c=$obj->conectando();
+                                          $query = "select * from reservacion where llegada = '$this->llegada'";
+                                          $ejecuta = mysqli_query($c, $query);
+                                          if(mysqli_fetch_array($ejecuta)){
+                                             echo "<script> alert('hora')</script>";
+                                          }else{
+                                          $conet = new Conexion();
+                                          $c = $conet->conectando(); 
+                                          $ruta = '../usuario/resenvacion.php'.$_FILES['llegada']['salida'];
+                                          move_uploaded_file($_FILES['llegada'][''],$ruta);
+                                          $insertar = "insert into reservacion.php value(
+                                                                                    '$this->numero_reservacion',
+                                                                                    '$this->llegada',
+                                                                                    '$ruta',
+                                                                                    '$this->salida',
+                                                                                    '$this->fecha'
+                                                                                    
+                                          )";
+                                          echo $insertar;
+                                          mysqli_query($c,$insertar);
+                                          echo "<script> alert('la hora fue Creado en el Sistema'); window.location.href='../vista/menu2.php';</script>";
+                                            
+                                        }
+                    }
+
+                    function modificar(){
+                     $obj = new conexion();
+                     $c=$obj->conectando();
+                     $query = "select * from reservacion where llegada = '$this->llegada'";
+                     $ejecuta = mysqli_query($c, $query);
+                     if(mysqli_fetch_array($ejecuta)){
+                        echo "<script> alert('La hora ya Existe en el Sistema')</script>";
+                     }else{
+                        $conet = new Conexion();
+                        $c = $conet->conectando(); 
+                        $ruta = '../usuario/reservacion.php'.$_FILES['reservacion']['llegada'];
+                        move_uploaded_file($_FILES['reservacion']['tmp_name'],$ruta);
+                        $update = "update reservacion set
+                                                               n_reservacion='$this->numero_reservacion',
+                                                               llegada='$this->fecha_hora',
+                                                               salida='$ruta',
+                                                               salida='$this->fecha_hora',
+                                                               id_cliente='$this->ida'
+                                                               where mesa_id='$this->numero_reservacion'
+                                                               
+                        ";
+                        echo $update;
+                        mysqli_query($c,$update);
+                        echo "<script> alert('hora modificado en el sistema'); window.location.href='../vista/menu2.php';</script>";
+                        
+                     }
+
+
+}   
+
+function eliminar(){
+                     $obj = new conexion();
+                     $c=$obj->conectando();
+                     $query = "select * from llegada where mesa_id = '$this->llegada'";
+                     $ejecuta = mysqli_query($c, $query);
+                     if(mysqli_fetch_array($ejecuta)){
+                        echo "<script> alert('La hora NO se puede eliminar del Sistema, solo se puede modificar')</script>";
+                     }else{
+                        $update = "delete from numero_reservacion 
+                                                               where mesa_id='$this->fecha_hora'
+                        ";
+                        echo $update;
+                        mysqli_query($c,$update);
+                        echo "<script> alert('La hora fue Eliminada del sistema'); window.location.href='../vista/menu2.php';</script>";
+                        
+                     }
+
+}
+
+
+}
+?>
