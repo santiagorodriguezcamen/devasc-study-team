@@ -1,1 +1,71 @@
-2
+<?php
+
+
+class reservacion{
+
+                  public $reservacion;
+                  public $fecha_hora;
+                  public $num_personas;
+                  public $mesa_id;
+                    
+
+                    
+
+
+
+if($_POST){
+
+    $obj->fecha_hora = $_POST['fecha_hora'];
+    $obj->num_personas = $_POST['num_personas'];
+    $obj->mesa_id = $_FILES['mesa_id']['tmp_name'];
+   
+}
+
+$key=$_GET['key'];
+echo $key;
+$obj = new conexion();
+$c=$obj->conectando();
+$sql="select * from fecha_hora where id_cliente='$key' ";
+$rs=mysqli_query($c,$sql);
+$array=mysqli_fetch_row($rs);
+$obj->fecha_hora = $array[0];
+$obj->num_personas = $array[1];
+$obj->mesa_id = $array[2];
+
+echo $obj->fecha_hora;
+echo $obj->num_personas;
+echo $obj->mesa_id;
+
+
+     
+
+     function agregar(){
+        
+                           $obj = new conexion();
+                           $c=$obj->conectando();
+                           $query = "select * from numero_reservacion where fecha_hora = '$this->fecha_hora'";
+                           $ejecuta = mysqli_query($c, $query);
+                           if(mysqli_fetch_array($ejecuta)){
+                              echo "<script> alert(' ya Existe en el Sistema')</script>";
+                           }else{
+                           $conet = new Conexion();
+                           $c = $conet->conectando(); 
+                           $ruta = '../vista/usuario/reservacion.php'.$_FILES['llegada']['salida'];
+                           move_uploaded_file($_FILES['salida']['tmp_salida'],$ruta);
+                           $insertar = "insert into numero_reservacion value(
+                                                                     '$this->fecha_hora',
+                                                                     '$this->num_personas',
+                                                                     '$ruta',
+                                                                     '$this->mesa_id',
+                                                                     
+                           )";
+                           echo $insertar;
+                           mysqli_query($c,$insertar);
+                           echo "<script> alert(' fue Creado en el Sistema'); window.location.href='../vista/usuario/reservacion.php';</script>";
+                             
+                         }
+     }
+
+
+}
+?>
